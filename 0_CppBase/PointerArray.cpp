@@ -15,8 +15,10 @@ void array(){
 
 void arrayAsPointer(){
 	int *numbers = new int[BOUND];
+	int *firstItemAddr = &numbers[0];
+	cout << "The value of numbers = " << numbers << " The value of fistItemAddr is " << firstItemAddr << endl;
 	for (int i = 0; i <= 4; i++) {
-		*(numbers + i*2) = i;
+		*(numbers + i) = i;
 	}
 	cout << numbers[6] << endl;
 	cout << numbers[7] << endl;
