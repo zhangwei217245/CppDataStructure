@@ -38,7 +38,7 @@ public:
     T* find(const T&) const;
 protected:
     DLLNode<T> *head, *tail;
-    friend ostream& operator<<(ostream& out, const DoublyLinkedList<T>& dll) {
+    friend std::ostream& operator<<(std::ostream& out, const DoublyLinkedList<T>& dll) {
         for (DLLNode<T> *tmp = dll.head; tmp != 0; tmp = tmp->next)
             out << tmp->info << ' ';
         return out;

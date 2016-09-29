@@ -2,7 +2,7 @@
 
 CPP=$1
 OUT=`echo $CPP | sed 's/.cpp/.out/g'`
-g++ -o $OUT $CPP
+g++ -std=gnu++11 -o $OUT $CPP
 shift;
 ./$OUT $@
 rm -rf $OUT
