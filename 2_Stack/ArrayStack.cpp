@@ -10,8 +10,9 @@ private:
       int *storage; // O O O O O
 public:
       Stack(int capacity) {
-            if (capacity <= 0)
+            if (capacity <= 0) {
                   throw string("Stack's capacity must be positive");
+	    }
             storage = new int[capacity];
             this->capacity = capacity;
             top = -1;
@@ -28,22 +29,25 @@ public:
       }
  
       void push(int value) {
-            if (top == capacity)
+            if (top == capacity){
                   throw string("Stack's underlying storage is overflow");
+	    }
             top++;
 	    length++;
             storage[top] = value;
       }
  
       int peek() { // topEl
-            if (top == -1)
+            if (top == -1) {
                   throw string("Stack is empty");
+	    }
             return storage[top];
       }
  
       void pop() {
-            if (top == -1)
+            if (top == -1) {
                   throw string("Stack is empty");
+	    }
 	    length--;
             top--;
       }
@@ -70,6 +74,7 @@ int main(){
 			cout<<"SIZE=" <<  stk.size() << endl;
 			stk.pop();	
 		}
+		char *expression = "(a*(b+c*(c-2)/5)/2";
 	}catch(string e){
 		cout << "Exception: " << e << endl;
 	}
