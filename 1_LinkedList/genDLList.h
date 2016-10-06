@@ -35,7 +35,9 @@ public:
     void addToDLLHead(const T&);
     T deleteFromDLLHead();
     T& firstEl();
+    T& lastEl();
     T* find(const T&) const;
+    void printBackward();
 protected:
     DLLNode<T> *head, *tail;
     friend ostream& operator<<(ostream& out, const DoublyLinkedList<T>& dll) {
@@ -105,7 +107,18 @@ T* DoublyLinkedList<T>::find(const T& el) const {
 
 template<class T>
 T& DoublyLinkedList<T>::firstEl() {
+    if (isEmpty()) {
+        throw string("The list is empty.");
+    }
     return head->info;
+}
+
+template<class T>
+T& DoublyLinkedList<T>::lastEl() {
+    if (isEmpty()) {
+        throw string("The list is empty.");
+    }
+    return tail->info;
 }
 
 template<class T>

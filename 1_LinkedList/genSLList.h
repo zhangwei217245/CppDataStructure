@@ -1,28 +1,33 @@
-#ifndef DOUBLY_LINKED_LIST
-#define DOUBLY_LINKED_LIST
+#ifndef SINGLY_LINKED_LIST
+#define SINGLY_LINKED_LIST
+
+#include <string>
+#include <iostream>
+
+using namespace std;
 
 template<class T>
-class DLLNode {
+class SLLNode {
 public:
-    DLLNode() {
-        next = prev = 0;
+    SLLNode() {
+        next = 0;
     }
-    DLLNode(const T& el, DLLNode<T> *n = 0, DLLNode<T> *p = 0) {
-        info = el; next = n; prev = p;
+    SLLNode(const T& el, SLLNode<T> *n = 0) {
+        info = el; next = n;
     }
     T info;
-    DLLNode<T> *next, *prev;
+    SLLNode<T> *next;
 };
 
 template<class T>
-class DoublyLinkedList {
+class SinglyLinkedList {
 public:
-    DoublyLinkedList() {
+    SinglyLinkedList() {
         head = tail = 0;
     }
-    void addToDLLTail(const T&);
-    T deleteFromDLLTail();
-    ~DoublyLinkedList() {
+    void addToSLLTail(const T&);
+    T deleteFromSLLTail();
+    ~SinglyLinkedList() {
         clear();
     }
     bool isEmpty() const {
@@ -32,85 +37,198 @@ public:
     void setToNull() {
         head = tail = 0;
     }
-    void addToDLLHead(const T&);
-    T deleteFromDLLHead();
+    void addToSLLHead(const T&);
+    T deleteFromSLLHead();
     T& firstEl();
+    T& lastEl();
     T* find(const T&) const;
+    void printAll();
+    void printRecursively(const SLLNode<T> *);
+    void deleteNode(const T&);
+    int deleteAll(const T&);
+    void deleteAllAfter(const T&, const SLLNode<T> *, const SLLNode<T> *, int* const);
 protected:
-    DLLNode<T> *head, *tail;
-    friend ostream& operator<<(ostream& out, const DoublyLinkedList<T>& dll) {
-        for (DLLNode<T> *tmp = dll.head; tmp != 0; tmp = tmp->next)
+    SLLNode<T> *head, *tail;
+    friend ostream& operator<<(ostream& out, const SinglyLinkedList<T>& dll) {
+        for (SLLNode<T> *tmp = dll.head; tmp != 0; tmp = tmp->next)
             out << tmp->info << ' ';
         return out;
     }
 };
 
 template<class T>
-void DoublyLinkedList<T>::addToDLLHead(const T& el) {
-    if (head != 0) {
-         head = new DLLNode<T>(el,head,0);
-         head->next->prev = head;
-    }
-    else head = tail = new DLLNode<T>(el);
+void SinglyLinkedList<T>::printAll() {
+    // for (SLLNode<T> *tmp = this->head; tmp != 0; tmp = tmp->next){
+    //     cout << tmp->info << ' ';
+    // }
+    printRecursively(this->head);
+    cout << endl;
 }
 
 template<class T>
-void DoublyLinkedList<T>::addToDLLTail(const T& el) {
+void SinglyLinkedList<T>::printRecursively(const SLLNode<T>* node) {
+    if (node != 0) {
+        cout << node->info << " ";
+        printRecursively(node->next);
+    } else { // This branch can be implicit
+        return;
+    }
+}
+
+template<class T>
+int SinglyLinkedList<T>::deleteAll(const T& el) {
+    int delete_count = 0;
+    if (isEmpty()) {
+        return delete_count;
+    } else {
+        SLLNode<T> *prev = 0;
+        SLLNode<T> *curr = head;
+        while (curr != 0) {
+            if (curr->info == el) {
+                delete_count++;
+                if (curr == head) {
+                    prev = 0;
+                    head = curr->next;
+                    if (curr == tail) {
+                        tail = head;
+                    }
+                    delete curr;
+                    curr = head;
+                } else if (curr != head && curr != tail) {
+                    prev->next = curr->next;
+                    delete curr;
+                    curr = prev->next;
+                } else if (curr == tail) {
+                    prev->next = curr->next;
+                    delete curr;
+                    tail = prev;
+                    curr = 0;
+                }
+            } else {
+                prev = curr;
+                curr = prev -> next;
+            }
+        }
+    }
+    return delete_count;
+}
+
+template<class T>
+void SinglyLinkedList<T>::deleteNode(const T& el) {
+    int delete_count = 0;
+    if (isEmpty()) {
+        return;
+    } else {
+        SLLNode<T> *prev = 0;
+        SLLNode<T> *curr = head;
+        while (curr != 0 && delete_count == 0) {
+            if (curr->info == el) {
+                delete_count++;
+                if (curr == head) {
+                    prev = 0;
+                    head = curr->next;
+                    if (curr == tail) {
+                        tail = head;
+                    }
+                    delete curr;
+                    curr = head;
+                } else if (curr != head && curr != tail) {
+                    prev->next = curr->next;
+                    delete curr;
+                    curr = prev->next;
+                } else if (curr == tail) {
+                    prev->next = curr->next;
+                    delete curr;
+                    tail = prev;
+                    curr = 0;
+                }
+            } else {
+                prev = curr;
+                curr = prev -> next;
+            }
+        }
+    }
+}
+
+template<class T>
+void SinglyLinkedList<T>::addToSLLHead(const T& el) {
+    if (head == 0) {
+         head = tail = new SLLNode<T>(el);
+    } else {
+         head = new SLLNode<T>(el,head);
+    }
+}
+
+template<class T>
+void SinglyLinkedList<T>::addToSLLTail(const T& el) {
     if (tail != 0) {
-         tail = new DLLNode<T>(el,0,tail);
-         tail->prev->next = tail;
+         tail -> next = new SLLNode<T>(el);
+         tail = tail -> next;
     }
-    else head = tail = new DLLNode<T>(el);
+    else head = tail = new SLLNode<T>(el);
 }
 
 template<class T>
-T DoublyLinkedList<T>::deleteFromDLLHead() {
+T SinglyLinkedList<T>::deleteFromSLLHead() {
     T el = head->info;
-    if (head == tail) { // if only one DLLNode on the list;
-         delete head;
+    SLLNode<T> *tmp = head;
+    if (head == tail) { // if only one SLLNode on the list;
          head = tail = 0;
-    }
-    else {              // if more than one DLLNode in the list;
+    } else {              // if more than one SLLNode in the list;
          head = head->next;
-         delete head->prev;
-         head->prev = 0;
     }
+    delete tmp;
     return el;
 }
 
 template<class T>
-T DoublyLinkedList<T>::deleteFromDLLTail() {
+T SinglyLinkedList<T>::deleteFromSLLTail() {
     T el = tail->info;
-    if (head == tail) { // if only one DLLNode on the list;
+    if (head == tail) { // if only one SLLNode on the list;
          delete head;
          head = tail = 0;
     }
-    else {              // if more than one DLLNode in the list;
-         tail = tail->prev;
-         delete tail->next;
+    else {              // if more than one SLLNode in the list;
+         SLLNode<T> *tmp; // find the predecessor of tail;
+         for (tmp = head; tmp->next != tail; tmp = tmp -> next);
+         delete tail;
+         tail = tmp;
          tail->next = 0;
     }
     return el;
 }
 
 template <class T>
-T* DoublyLinkedList<T>::find(const T& el) const {
-    DLLNode<T> *tmp = head;
-    for ( ; tmp != 0 && !(tmp->info == el);  // overloaded ==
+T* SinglyLinkedList<T>::find(const T& el) const {
+    SLLNode<T> *tmp;
+    for (tmp = head; tmp != 0 && !(tmp->info == el);  // overloaded ==
          tmp = tmp->next);
-    if (tmp == 0)
+    if (tmp == 0){
          return 0;
-    else return &tmp->info;
+    } else {
+         return &tmp->info;
+    }
 }
 
 template<class T>
-T& DoublyLinkedList<T>::firstEl() {
+T& SinglyLinkedList<T>::firstEl() {
+    if (isEmpty()) {
+        throw string("The list is empty.");
+    }
     return head->info;
 }
 
 template<class T>
-void DoublyLinkedList<T>::clear() {
-    for (DLLNode<T> *tmp; head != 0; ) {
+T& SinglyLinkedList<T>::lastEl() {
+    if (isEmpty()) {
+        throw string("The list is empty.");
+    }
+    return tail->info;
+}
+
+template<class T>
+void SinglyLinkedList<T>::clear() {
+    for (SLLNode<T> *tmp; head != 0; ) {
         tmp = head;
         head = head->next;
         delete tmp;
