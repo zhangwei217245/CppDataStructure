@@ -1,3 +1,6 @@
+https://www.tutorialspoint.com/cplusplus/cpp_pointers_vs_arrays.htm
+
+
 http://www.learncpp.com/cpp-tutorial/713-command-line-arguments/
 Using command line arguments
 
