@@ -39,10 +39,12 @@ int main(int argc, char *argv[])
 }
 ```
 Now, when we invoke this program (MyArgs) with the command line arguments “Myfile.txt” and “100”, the output will be as follows:
-
+···
 There are 3 arguments:
+
 0 C:\MyArgs
 1 Myfile.txt
 2 100 " "}
+···
 
 
