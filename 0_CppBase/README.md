@@ -1,10 +1,13 @@
 https://www.tutorialspoint.com/cplusplus/cpp_arrays.htm
+
 https://www.tutorialspoint.com/cplusplus/cpp_pointers.htm
+
 https://www.tutorialspoint.com/cplusplus/cpp_pointers_vs_arrays.htm
 
 
 
 http://www.learncpp.com/cpp-tutorial/713-command-line-arguments/
+
 Using command line arguments
 
 Now that you know how to provide command line arguments to a program, the next step is to access them from within our C++ program. To do that, we use a different form of main() than we’ve seen before. This new form of main() takes two arguments (named argc and argv by convention) as follows:
