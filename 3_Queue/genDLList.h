@@ -1,5 +1,8 @@
 #ifndef DOUBLY_LINKED_LIST
 #define DOUBLY_LINKED_LIST
+#include <iostream>
+#include <string>
+using namespace std;
 
 template<class T>
 class DLLNode {
