@@ -1,21 +1,27 @@
 /* Queue - Circular Array implementation in C++*/
 #include<iostream>
 using namespace std; 
-#define MAX_SIZE 101  //maximum size of the array that will store Queue. 
 
 // Creating a class named Queue.
 class Queue
 {
 private:
-	int A[MAX_SIZE];
+	int *A;
+    int capacity;
 	int front, rear; 
 public:
 	// Constructor - set front and rear as -1. 
 	// We are assuming that for an empty Queue, both front and rear will be -1.
-	Queue()
+    Queue()
+    {
+        front = -1;
+        rear = -1;
+    }
+	Queue(int capacity)
 	{
-		front = -1; 
-		rear = -1;
+        this->capacity = capacity;
+        A = new int[capacity];
+        Queue();
 	}
 
 	// To check wheter Queue is empty or not
@@ -27,7 +33,7 @@ public:
 	// To check whether Queue is full or not
 	bool IsFull()
 	{
-		return (rear+1)%MAX_SIZE == front ? true : false;
+		return (rear+1)%this->capacity == front ? true : false;
 	}
 
 	// Inserts an element in queue at rear end
@@ -45,7 +51,7 @@ public:
 		}
 		else
 		{
-		    rear = (rear+1)%MAX_SIZE;
+		    rear = (rear+1)%this->capacity;
 		}
 		A[rear] = x;
 	}
@@ -65,7 +71,7 @@ public:
 		}
 		else
 		{
-			front = (front+1)%MAX_SIZE;
+			front = (front+1)%this->capacity;
 		}
 	}
 	// Returns element at front of queue. 
@@ -86,11 +92,11 @@ public:
 	void Print()
 	{
 		// Finding number of elements in queue  
-		int count = (rear+MAX_SIZE-front)%MAX_SIZE + 1;
+		int count = (rear+this->capacity-front)%this->capacity + 1;
 		cout<<"Queue       : ";
 		for(int i = 0; i <count; i++)
 		{
-			int index = (front+i) % MAX_SIZE; // Index of element while travesing circularly from front
+			int index = (front+i) % this->capacity; // Index of element while travesing circularly from front
 			cout<<A[index]<<" ";
 		}
 		cout<<"\n\n";
@@ -101,7 +107,7 @@ int main()
 	/*Driver Code to test the implementation
 	  Printing the elements in Queue after each Enqueue or Dequeue 
 	*/
-   Queue Q; // creating an instance of Queue. 
+   Queue Q(5); // creating an instance of Queue. 
    Q.Enqueue(2);  Q.Print();  
    Q.Enqueue(4);  Q.Print();  
    Q.Enqueue(6);  Q.Print();
