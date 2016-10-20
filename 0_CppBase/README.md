@@ -1,7 +1,9 @@
-Two websites recommended by students(Thanks to Darien Sokolov):
+Four websites recommended by students(Thanks to Darien Sokolov):
 
 * Space/Time Complexities: http://bigocheatsheet.com/
 * Sorting Algorithms: https://www.toptal.com/developers/sorting-algorithms
+* The Visual-Aid Source: https://www.cs.usfca.edu/~galles/visualization/Algorithms.html
+* How to use it: https://www.cs.usfca.edu/~galles/visualization/
 
 **Note: Please use the online materials wisely, depending on the specific situation where you are trying to apply the knowledge from them, you should have your own judgement on whether it is appropriate to use them or trust them.**
 
