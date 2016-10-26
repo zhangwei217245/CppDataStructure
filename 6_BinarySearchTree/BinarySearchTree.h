@@ -38,20 +38,12 @@ class BST{
             //But the preorder traversal function needs to be implemented first.
         }
         BSTNode<T>* insert(BSTNode<T> *subTreeRoot, const T& e);
-		bool search(BSTNode<T> *node, const T& e);
 		void print_t(BSTNode<T> *tree);
         T placeholder;
         BSTNode<T> *root;
     private:
         int _print_t(BSTNode<T> *tree, int is_left, int offset, int depth, char s[20][255]);
 };
-
-template<class T>
-bool BST<T>::search(BSTNode<T> *node, const T& e){
-	bool found = false;
-		
-    return found;
-}
 
 template<class T>
 int BST<T>::_print_t(BSTNode<T> *tree, int is_left, int offset, int depth, char s[20][255]){

@@ -15,8 +15,8 @@ int main(){
    bst.print_t(bst.root);
 
    for (int i = 0; i < 10; i++){
-        cout << test_data[i] << (bst.search(bst.root, test_data[i])?" can":" cannot")<< " be found in the tree!" << endl;
-        cout << test_data[i]-1 << (bst.search(bst.root, test_data[i]-1)?" can":" cannot")<< " be found in the tree!" << endl;
+        //cout << test_data[i] << (bst.search(bst.root, test_data[i])?" can":" cannot")<< " be found in the tree!" << endl;
+        //cout << test_data[i]-1 << (bst.search(bst.root, test_data[i]-1)?" can":" cannot")<< " be found in the tree!" << endl;
    }
    return 0;
 }
