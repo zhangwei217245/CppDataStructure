@@ -72,6 +72,7 @@ int main(int argc, char **argv){     // This version will check for proper brack
 			
 		    cout << expression[i] << " "<< level << endl;
 		    if (!stk.isEmpty()){//defensive programming! Before any exception happens, make sure you try to avoid them.
+/*
                     	v = stk.pop();
 			if ( v == '('  && expression[i]!=')') {
 				sprintf(errmsg, "Failed at level %d : expect %c", level, ')');
@@ -83,10 +84,11 @@ int main(int argc, char **argv){     // This version will check for proper brack
 				sprintf(errmsg, "Failed at level %d : expect %c", level, '}');
 				throw string(errmsg);
 			}
-                        //if(!(v+1 == expression[i] || v+2 == expression[i])){    // this character arithmetic is just a lazy way of manipulating the ASCII table to save coding time
+*/
+                        if(!(v+1 == expression[i] || v+2 == expression[i])){    // this character arithmetic is just a lazy way of manipulating the ASCII table to save coding time
 // Although you can do the character arithmetic, but the drawback is that you need to check the ASCII table to make sure you are doing it in the right way or the offset you choose is correct. Also, it deminishes the readability for human. Actually, doing arithmetic will cause CPU to execute an ADD operation with several instructions against the registers, while using explicit characters will avoid at least the ADD instrcution. In addition, this logic is problematic when it comes to the case where expression is "{[(]}", it will fail you since for '(', it won't detect the exact place where the pair is missing. 
-			//    break;
-                    // }
+			    break;
+                        }
                  } else {
 			sprintf(errmsg, "Failed at level %d : redundant %c", level, expression[i]);
 			throw string(errmsg);
