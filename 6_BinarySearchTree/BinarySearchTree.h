@@ -49,12 +49,7 @@ class BST{
 template<class T>
 bool BST<T>::search(BSTNode<T> *node, const T& e){
 	bool found = false;
-	if (node == NULL) return found;
-	if (node -> el == e){
-		found = true;
-	} else {
-		found = (search(node->right,e) || search(node->left, e));
-	}
+		
     return found;
 }
 
