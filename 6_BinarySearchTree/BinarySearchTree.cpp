@@ -3,8 +3,8 @@ using namespace std;
 
 int main(){
    BST<int> bst;
-   srand(0);
-   //srand(time(NULL));
+   //srand(0);
+   srand(time(NULL));
 
    bst.placeholder=100;   
    int test_data[10];
