@@ -1,6 +1,11 @@
 #include "BinarySearchTree.h"
 using namespace std;
-
+void printArray(int *arr){
+   for (int i =0; i<10;i++){
+        cout << arr[i] << "  ";
+   }
+   cout << endl;
+}
 int main(){
    BST<int> bst;
    //srand(0);
@@ -12,6 +17,7 @@ int main(){
         test_data[i] = (rand() % 100)+1;
         bst.root = bst.insert(bst.root, test_data[i]);
    }
+   printArray(test_data);
    bst.print_t(bst.root);
 
    for (int i = 0; i < 10; i++){
