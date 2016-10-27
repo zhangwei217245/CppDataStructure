@@ -37,9 +37,9 @@ class BST{
             //Preorder traversal to delete every node.
             //But the preorder traversal function needs to be implemented first.
         }
+		bool search(BSTNode<T> *node, const T& e);
         BSTNode<T>* insert(BSTNode<T> *subTreeRoot, const T& e);
 		void print_t(BSTNode<T> *tree);
-        T placeholder;
         BSTNode<T> *root;
     private:
         int _print_t(BSTNode<T> *tree, int is_left, int offset, int depth, char s[20][255]);
@@ -107,7 +107,17 @@ BSTNode<T> * BST<T>::insert(BSTNode<T> *subTreeRoot, const T& e)
     }
     return subTreeRoot;
 }
-
+template<class T>
+bool BST<T>::search(BSTNode<T> *node, const T& e){
+	bool found = false;
+	if (node == NULL) return found;
+	if (node -> el == e){
+		found = true;
+	} else {
+		found = (search(node->right,e) || search(node->left, e));
+	}
+    return found;
+}
 
 //http://stackoverflow.com/questions/13484943/print-a-binary-tree-in-a-pretty-way
 //http://stackoverflow.com/questions/801740/c-how-to-draw-a-binary-tree-to-the-console
