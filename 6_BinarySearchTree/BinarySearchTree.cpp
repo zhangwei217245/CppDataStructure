@@ -25,5 +25,10 @@ int main(){
         // search the neighbor integer of each test data, make sure all of them cannot be found.
        cout << test_data[i]-1 << (bst.search(bst.root, test_data[i]-1)?" can":" cannot")<< " be found in the tree!" << endl;
    }
+
+    cout << "Preorder:" ; bst.preorder(bst.root);cout << endl;
+    cout << "Inorder:" ; bst.inorder(bst.root); cout<< endl;
+    cout << "Postorder:"; bst.postorder(bst.root);cout << endl;
+
    return 0;
 }

@@ -38,6 +38,9 @@ class BST{
             //But the preorder traversal function needs to be implemented first.
         }
 		bool search(BSTNode<T> *node, const T& e);
+        void preorder(BSTNode<T> *tree);
+        void inorder(BSTNode<T> *tree);
+        void postorder(BSTNode<T> *tree);
         BSTNode<T>* insert(BSTNode<T> *subTreeRoot, const T& e);
 		void print_t(BSTNode<T> *tree);
         BSTNode<T> *root;
@@ -118,6 +121,32 @@ bool BST<T>::search(BSTNode<T> *node, const T& e){
 	}
     return found;
 }
-
+template <class T>
+void BST<T>::preorder(BSTNode<T> *tree){
+	if(tree == NULL){
+		return;
+	}
+	cout << tree->el << " ";
+	preorder(tree -> left);
+	preorder(tree->right);
+}
+template <class T>
+void BST<T>::inorder(BSTNode<T> *tree){
+	if(tree == NULL){
+		return;
+	}
+	inorder(tree -> left);
+	cout << tree->el << " ";
+	inorder(tree->right);
+}
+template <class T>
+void BST<T>::postorder(BSTNode<T> *tree){
+	if(tree == NULL){
+		return;
+	}
+	postorder(tree -> left);
+	postorder(tree->right);
+	cout << tree->el << " ";
+}
 //http://stackoverflow.com/questions/13484943/print-a-binary-tree-in-a-pretty-way
 //http://stackoverflow.com/questions/801740/c-how-to-draw-a-binary-tree-to-the-console
