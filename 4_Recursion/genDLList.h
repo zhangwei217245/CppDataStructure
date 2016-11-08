@@ -127,20 +127,21 @@ void DoublyLinkedList<T>::addNode(const T& el){
     DLLNode<T> *newNode = new DLLNode<T>(el);
     if (this -> isEmpty()){ // list is empty
         head = tail = newNode;
-    } else {
+    } else { // Now you are guaranteed the list is non-empty.
         DLLNode<T> *destNode = findPlace(head, el);
-        if (destNode == 0) {
+        if (destNode == 0) { // When the findPlace function hit the tail.
           newNode -> next = 0;
           newNode -> prev = tail;
           newNode -> prev -> next = newNode;
           tail = newNode;
-        } else {
+        } else { // When the findPlace function hit somewhere other than tail.
           cout << destNode->info << endl;
-          if (head == destNode) {
+          if (head == destNode) {// This place could be head.
             head = newNode;
           }
           newNode -> prev = destNode -> prev;
           newNode -> next = destNode;
+          // But most likely, it is not the head. It could be in the middle.
           if (destNode -> prev != 0) {
             destNode -> prev -> next =newNode;
           }
