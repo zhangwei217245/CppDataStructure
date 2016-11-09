@@ -72,19 +72,11 @@ private:
 
 template <class T>
 TreeNode<T> *AVLTree<T>::ll_rotation(TreeNode<T> *subroot) {
-    TreeNode<T> *temp;
-    temp = subroot -> left;
-    subroot -> left = temp -> right;
-    temp -> right = subroot;
-    return temp;
+    return NULL;
 }
 template <class T>
 TreeNode<T> *AVLTree<T>::rr_rotation(TreeNode<T> *subroot) {
-    TreeNode<T> *temp;
-    temp = subroot -> right;
-    subroot -> right = temp -> left;
-    temp -> left = subroot;
-    return temp;
+    return NULL;
 }
 template <class T>
 TreeNode<T> *AVLTree<T>::lr_rotation(TreeNode<T> *subroot) {
@@ -130,10 +122,7 @@ int AVLTree<T>::diff(TreeNode<T> *subroot) {
 
 template <class T>
 int AVLTree<T>::height(TreeNode<T> *subroot) {
-    if (subroot == NULL) {
-        return 0;
-    }
-    return 1 + max(height(subroot->left), height(subroot -> right));
+    return 0;
 }
 
 template<class T>
@@ -148,11 +137,11 @@ TreeNode<T>* AVLTree<T>::insert(TreeNode<T> *subTreeRoot, const T &e) {
         } else {
             subTreeRoot->right = insert(subTreeRoot->right, e);
         }
-        cout << "================ Before Balancing ================" << endl;
-        print_t(this->root);
+//        cout << "================ Before Balancing ================" << endl;
+//        print_t(this->root);
         subTreeRoot = balance(subTreeRoot);
-        cout << "================= After Balancing ================" << endl;
-        print_t(this->root);
+//        cout << "================= After Balancing ================" << endl;
+//        print_t(this->root);
     }
     return subTreeRoot;
 }
