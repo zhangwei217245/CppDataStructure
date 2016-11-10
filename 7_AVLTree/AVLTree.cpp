@@ -20,9 +20,9 @@ int main(){
    AVLTree.print_t(AVLTree.root); // print the tree
 
    for (int i = 0; i < 10; i++){
-         // search each test data, make sure all of them will be found.
-        cout << test_data[i] << (AVLTree.search(AVLTree.root, test_data[i])?" can":" cannot")<< " be found in the tree!" << endl;
-        // search the neighbor integer of each test data, make sure all of them cannot be found.
+       // search each test data, make sure all of them will be found.
+       cout << test_data[i] << (AVLTree.search(AVLTree.root, test_data[i])?" can":" cannot")<< " be found in the tree!" << endl;
+       // search the neighbor integer of each test data, make sure all of them cannot be found.
        cout << test_data[i]-1 << (AVLTree.search(AVLTree.root, test_data[i]-1)?" can":" cannot")<< " be found in the tree!" << endl;
    }
 
