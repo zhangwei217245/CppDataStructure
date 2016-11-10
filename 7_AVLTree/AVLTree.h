@@ -235,5 +235,3 @@ void AVLTree<T>::print_t(TreeNode<T> *tree) {
     for (int i = 0; i < 20; i++)
         printf("%s\n", s[i]);
 }
-
-//http://kukuruku.co/hub/cpp/avl-trees
