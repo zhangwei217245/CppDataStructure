@@ -30,5 +30,7 @@ int main(){
     cout << "Inorder:" ; AVLTree.inorder(AVLTree.root); cout<< endl;
     cout << "Postorder:"; AVLTree.postorder(AVLTree.root);cout << endl;
 
+    cout << "The height of the tree is : " << AVLTree.height(AVLTree.root) << endl;
+
    return 0;
 }

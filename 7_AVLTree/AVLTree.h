@@ -53,6 +53,8 @@ public:
 
     TreeNode<T>* balance(TreeNode<T> *subroot);
 
+    TreeNode<T>* balance2(TreeNode<T> *subroot);
+
     bool search(TreeNode<T> *node, const T &e);
 
     void preorder(TreeNode<T> *tree);
@@ -72,45 +74,79 @@ private:
 
 template <class T>
 TreeNode<T> *AVLTree<T>::ll_rotation(TreeNode<T> *subroot) {
-    TreeNode<T> *temp = NULL;
-
-    return temp;
+    TreeNode<T> *newroot = NULL;
+    newroot = subroot -> right;
+    subroot -> right = newroot -> left;
+    newroot -> left = subroot;
+    return newroot;
 }
 template <class T>
 TreeNode<T> *AVLTree<T>::rr_rotation(TreeNode<T> *subroot) {
-    TreeNode<T> *temp = NULL;
-
-    return temp;
+    TreeNode<T> *newroot = NULL;
+    newroot = subroot -> left;
+    subroot -> left = newroot -> right;
+    newroot -> right = subroot;
+    return newroot;
 }
+
 template <class T>
 TreeNode<T> *AVLTree<T>::lr_rotation(TreeNode<T> *subroot) {
-
-
-    return NULL;
+    TreeNode<T> *newroot;
+    newroot = subroot -> left;
+    subroot -> left = ll_rotation(newroot);
+    return rr_rotation(subroot);
 }
+
 template <class T>
 TreeNode<T> *AVLTree<T>::rl_rotation(TreeNode<T> *subroot) {
-
-    return NULL;
+    TreeNode<T> *newroot;
+    newroot = subroot -> right;
+    subroot -> right = rr_rotation(newroot);
+    return ll_rotation(subroot);
 }
 
 template <class T>
 TreeNode<T>* AVLTree<T>::balance(TreeNode<T> *subroot) {
     TreeNode<T> *temp = subroot;
     int bl_factor = diff(temp);
-    if (bl_factor > 1)
+    if (bl_factor > 1) // left branch is heavier. Need to rotate towards right.
     {
-        if (diff (temp->left) > 0)
-            temp = ll_rotation (temp);
-        else
-            temp = lr_rotation (temp);
+        if (diff (temp->left) < 0){ // right branch of the left branch is heavier, need to rotate the left branch towards left first.
+            temp->left = ll_rotation (temp -> left);
+        }
+        temp = rr_rotation(temp);
     }
-    else if (bl_factor < -1)
+    else if (bl_factor < -1) // right branch is heavier. Need to rotate towards left.
     {
-        if (diff (temp->right) > 0)
+        if (diff (temp->right) > 0) { // the left branch of the right branch is heavier, need to rotate the right branch towards right first.
+            temp -> right = rr_rotation (temp -> right);
+        }
+        temp = ll_rotation (temp);
+    }
+    return temp;
+}
+
+
+template <class T>
+TreeNode<T>* AVLTree<T>::balance2(TreeNode<T> *subroot) {
+    TreeNode<T> *temp = subroot;
+    int bl_factor = diff(temp);
+    if (bl_factor > 1) // left branch is heavier. Need to rotate towards right.
+    {
+        if (diff (temp->left) < 0){ // right branch of the left branch is heavier, need to rotate the left branch towards left first.
+            temp = lr_rotation (temp);
+        } else {
+            temp = rr_rotation(temp);
+        }
+
+    }
+    else if (bl_factor < -1) // right branch is heavier. Need to rotate towards left.
+    {
+        if (diff (temp->right) > 0) { // the left branch of the right branch is heavier, need to rotate the right branch towards right first.
             temp = rl_rotation (temp);
-        else
-            temp = rr_rotation (temp);
+        } else {
+            temp = ll_rotation (temp);
+        }
     }
     return temp;
 }
@@ -123,7 +159,10 @@ int AVLTree<T>::diff(TreeNode<T> *subroot) {
 
 template <class T>
 int AVLTree<T>::height(TreeNode<T> *subroot) {
-    return 0;
+    if (subroot == NULL) {
+        return -1;
+    }
+    return 1 + max(height(subroot->left), height(subroot->right));
 }
 
 template<class T>
@@ -140,7 +179,8 @@ TreeNode<T>* AVLTree<T>::insert(TreeNode<T> *subTreeRoot, const T &e) {
         }
 //        cout << "================ Before Balancing ================" << endl;
 //        print_t(this->root);
-        subTreeRoot = balance(subTreeRoot);
+        //subTreeRoot = balance(subTreeRoot);
+        subTreeRoot = balance2(subTreeRoot);
 //        cout << "================= After Balancing ================" << endl;
 //        print_t(this->root);
     }

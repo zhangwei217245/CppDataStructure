@@ -1,12 +1,8 @@
-#include <iostream>
-#include <cstdlib>
-#include <ctime>
-#include <cstring>
-
-using namespace std;
+#include "Sort.h"
 
 
-void merge(int leftArr[], int leftSize, int rightArr[], int rightSize, int dest[]){
+template <class X>
+void merge(X leftArr[], int leftSize, X rightArr[], int rightSize, X dest[]){
     int i=0, j=0, k=0;
     while ((i<leftSize) && (j<rightSize))
     {
@@ -43,11 +39,12 @@ void merge(int leftArr[], int leftSize, int rightArr[], int rightSize, int dest[
 
 }
 
-void mergeSort(int *arr, int size){
-    if (size >=2){
-        int midIdx = size/2 - 1;
+template <class X>
+void mergeSort(Data<X> data){
+    if (data.size >=2){
+        int midIdx = data.size/2 - 1;
         int leftSize = midIdx + 1;
-        int rightSize = size - (midIdx + 1);
+        int rightSize = data.size - (midIdx + 1);
         int leftPart[leftSize];
         int rightPart[rightSize];
         memcpy(leftPart, arr, (leftSize)*sizeof(int));
@@ -58,12 +55,9 @@ void mergeSort(int *arr, int size){
     }
 }
 
-
-void printArray(int arr[], int size){
-    for (int i = 0 ; i < size ; i++){
-        cout << arr[i] << "  ";
-    }
-    cout << endl;
+template <class X>
+void sort(Data<X> data){
+    mergeSort(data);
 }
 
 int main()
