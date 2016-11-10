@@ -9,6 +9,7 @@
 #include <ctime>
 #include <vector>
 #include <stdio.h>
+
 using namespace std;
 
 template<class T>
@@ -17,9 +18,13 @@ public:
     DLLNode() {
         next = prev = 0;
     }
-    DLLNode(const T& el, DLLNode<T> *n = 0, DLLNode<T> *p = 0) {
-        info = el; next = n; prev = p;
+
+    DLLNode(const T &el, DLLNode<T> *n = 0, DLLNode<T> *p = 0) {
+        info = el;
+        next = n;
+        prev = p;
     }
+
     T info;
     DLLNode<T> *next, *prev;
 };
@@ -30,32 +35,51 @@ public:
     DoublyLinkedList() {
         head = tail = 0;
     }
-    void addToDLLTail(const T&);
+
+    void addToDLLTail(const T &);
+
     T deleteFromDLLTail();
+
     ~DoublyLinkedList() {
         clear();
     }
+
     bool isEmpty() const {
         return head == 0;
     }
+
     void clear();
+
     void setToNull() {
         head = tail = 0;
     }
-    DLLNode<T>* getHead(){return head;}
-    DLLNode<T>* getTail(){return tail;}
-    void addToDLLHead(const T&);
+
+    DLLNode<T> *getHead() { return head; }
+
+    DLLNode<T> *getTail() { return tail; }
+
+    void addToDLLHead(const T &);
+
     T deleteFromDLLHead();
-    T& firstEl();
-    T& lastEl();
-    DLLNode<T>* find(const T&) const;
-    DLLNode<T>* findPlace(DLLNode<T>*, const T&) const;
-    DLLNode<T>* recursiveSearch(DLLNode<T>*, DLLNode<T>*, const T&) const;
-    void addNode(const T&);
+
+    T &firstEl();
+
+    T &lastEl();
+
+    DLLNode<T> *find(const T &) const;
+
+    DLLNode<T> *findPlace(DLLNode<T> *, const T &) const;
+
+    DLLNode<T> *recursiveSearch(DLLNode<T> *, DLLNode<T> *, const T &) const;
+
+    void addNode(const T &);
+
     void printAll();
+
 protected:
     DLLNode<T> *head, *tail;
-    friend ostream& operator<<(ostream& out, const DoublyLinkedList<T>& dll) {
+
+    friend ostream &operator<<(ostream &out, const DoublyLinkedList<T> &dll) {
         for (DLLNode<T> *tmp = dll.head; tmp != 0; tmp = tmp->next)
             out << tmp->info << ' ';
         return out;
@@ -63,34 +87,31 @@ protected:
 };
 
 template<class T>
-void DoublyLinkedList<T>::addToDLLHead(const T& el) {
+void DoublyLinkedList<T>::addToDLLHead(const T &el) {
     if (head != 0) {
-         head = new DLLNode<T>(el,head,0);
-         head->next->prev = head;
-    }
-    else head = tail = new DLLNode<T>(el);
+        head = new DLLNode<T>(el, head, 0);
+        head->next->prev = head;
+    } else head = tail = new DLLNode<T>(el);
 }
 
 template<class T>
-void DoublyLinkedList<T>::addToDLLTail(const T& el) {
+void DoublyLinkedList<T>::addToDLLTail(const T &el) {
     if (tail != 0) {
-         tail = new DLLNode<T>(el,0,tail);
-         tail->prev->next = tail;
-    }
-    else head = tail = new DLLNode<T>(el);
+        tail = new DLLNode<T>(el, 0, tail);
+        tail->prev->next = tail;
+    } else head = tail = new DLLNode<T>(el);
 }
 
 template<class T>
 T DoublyLinkedList<T>::deleteFromDLLHead() {
     T el = head->info;
     if (head == tail) { // if only one DLLNode on the list;
-         delete head;
-         head = tail = 0;
-    }
-    else {              // if more than one DLLNode in the list;
-         head = head->next;
-         delete head->prev;
-         head->prev = 0;
+        delete head;
+        head = tail = 0;
+    } else {              // if more than one DLLNode in the list;
+        head = head->next;
+        delete head->prev;
+        head->prev = 0;
     }
     return el;
 }
@@ -99,92 +120,89 @@ template<class T>
 T DoublyLinkedList<T>::deleteFromDLLTail() {
     T el = tail->info;
     if (head == tail) { // if only one DLLNode on the list;
-         delete head;
-         head = tail = 0;
-    }
-    else {              // if more than one DLLNode in the list;
-         tail = tail->prev;
-         delete tail->next;
-         tail->next = 0;
+        delete head;
+        head = tail = 0;
+    } else {              // if more than one DLLNode in the list;
+        tail = tail->prev;
+        delete tail->next;
+        tail->next = 0;
     }
     return el;
 }
 
-template <class T>
-DLLNode<T>* DoublyLinkedList<T>::findPlace(DLLNode<T>* node, const T& el) const {
-    if (node == 0){
+template<class T>
+DLLNode<T> *DoublyLinkedList<T>::findPlace(DLLNode<T> *node, const T &el) const {
+    if (node == 0) {
         return 0;
     }
-    if (node -> info >= el ) {
+    if (node->info >= el) {
         return node;
     } else {
-        return findPlace(node -> next , el);
+        return findPlace(node->next, el);
     }
 }
 
-template <class T>
-void DoublyLinkedList<T>::addNode(const T& el){
+template<class T>
+void DoublyLinkedList<T>::addNode(const T &el) {
     DLLNode<T> *newNode = new DLLNode<T>(el);
-    if (this -> isEmpty()){ // list is empty
+    if (this->isEmpty()) { // list is empty
         head = tail = newNode;
     } else { // Now you are guaranteed the list is non-empty.
         DLLNode<T> *destNode = findPlace(head, el);
         if (destNode == 0) { // When the findPlace function hit the tail.
-          newNode -> next = 0;
-          newNode -> prev = tail;
-          newNode -> prev -> next = newNode;
-          tail = newNode;
+            newNode->next = 0;
+            newNode->prev = tail;
+            newNode->prev->next = newNode;
+            tail = newNode;
         } else { // When the findPlace function hit somewhere other than tail.
-          cout << destNode->info << endl;
-          if (head == destNode) {// This place could be head.
-            head = newNode;
-          }
-          newNode -> prev = destNode -> prev;
-          newNode -> next = destNode;
-          // But most likely, it is not the head. It could be in the middle.
-          if (destNode -> prev != 0) {
-            destNode -> prev -> next =newNode;
-          }
-          destNode -> prev = newNode;
+            cout << destNode->info << endl;
+            if (head == destNode) {// This place could be head.
+                head = newNode;
+            }
+            newNode->prev = destNode->prev;
+            newNode->next = destNode;
+            // But most likely, it is not the head. It could be in the middle.
+            if (destNode->prev != 0) {
+                destNode->prev->next = newNode;
+            }
+            destNode->prev = newNode;
         }
     }
 }
 
-template <class T>
-DLLNode<T>* DoublyLinkedList<T>::find(const T& el) const {
+template<class T>
+DLLNode<T> *DoublyLinkedList<T>::find(const T &el) const {
     DLLNode<T> *tmp = head;
-    for ( ; tmp != 0 && !(tmp->info == el);  // overloaded ==
-         tmp = tmp->next);
+    for (; tmp != 0 && !(tmp->info == el);  // overloaded ==
+           tmp = tmp->next);
     if (tmp == 0)
-         return 0;
+        return 0;
     else return tmp;
 }
 
 
-
-template <class T>
-DLLNode<T>* DoublyLinkedList<T>::recursiveSearch(DLLNode<T>* front, DLLNode<T> *rear, const T& el) const {
-  DLLNode<T>* fn = 0; //the next of front
-  DLLNode<T>* rp = 0; //the prev of rear
-  if (front != 0){
-      fn = front -> next;
-      if (front -> info == el) {
-        return front;
-      }
-  }
-  if (rear != 0) {
-      rp = rear -> prev;
-      if (rear -> info == el) {
-        return rear;
-      }
-  }
-  return recursiveSearch(fn, rp, el);
+template<class T>
+DLLNode<T> *DoublyLinkedList<T>::recursiveSearch(DLLNode<T> *front, DLLNode<T> *rear, const T &el) const {
+    DLLNode<T> *fn = 0; //the next of front
+    DLLNode<T> *rp = 0; //the prev of rear
+    if (front != 0) {
+        fn = front->next;
+        if (front->info == el) {
+            return front;
+        }
+    }
+    if (rear != 0) {
+        rp = rear->prev;
+        if (rear->info == el) {
+            return rear;
+        }
+    }
+    return recursiveSearch(fn, rp, el);
 }
 
 
-
 template<class T>
-T& DoublyLinkedList<T>::firstEl() {
+T &DoublyLinkedList<T>::firstEl() {
     if (isEmpty()) {
         throw string("The list is empty.");
     }
@@ -192,7 +210,7 @@ T& DoublyLinkedList<T>::firstEl() {
 }
 
 template<class T>
-T& DoublyLinkedList<T>::lastEl() {
+T &DoublyLinkedList<T>::lastEl() {
     if (isEmpty()) {
         throw string("The list is empty.");
     }
@@ -201,7 +219,7 @@ T& DoublyLinkedList<T>::lastEl() {
 
 template<class T>
 void DoublyLinkedList<T>::clear() {
-    for (DLLNode<T> *tmp; head != 0; ) {
+    for (DLLNode<T> *tmp; head != 0;) {
         tmp = head;
         head = head->next;
         delete tmp;
@@ -211,10 +229,10 @@ void DoublyLinkedList<T>::clear() {
 
 template<class T>
 void DoublyLinkedList<T>::printAll() {
-    cout << "LinkedList = " ;
-    for (DLLNode<T> *tmp = head; tmp != 0; ) {
-        cout << tmp -> info << " ";
-        tmp = tmp-> next;
+    cout << "LinkedList = ";
+    for (DLLNode<T> *tmp = head; tmp != 0;) {
+        cout << tmp->info << " ";
+        tmp = tmp->next;
     }
     cout << endl;
 }
