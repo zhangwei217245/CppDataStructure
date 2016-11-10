@@ -138,11 +138,11 @@ TreeNode<T>* AVLTree<T>::insert(TreeNode<T> *subTreeRoot, const T &e) {
         } else {
             subTreeRoot->right = insert(subTreeRoot->right, e);
         }
-        cout << "================ Before Balancing ================" << endl;
-        print_t(this->root);
+//        cout << "================ Before Balancing ================" << endl;
+//        print_t(this->root);
         subTreeRoot = balance(subTreeRoot);
-        cout << "================= After Balancing ================" << endl;
-        print_t(this->root);
+//        cout << "================= After Balancing ================" << endl;
+//        print_t(this->root);
     }
     return subTreeRoot;
 }
