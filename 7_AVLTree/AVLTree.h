@@ -123,10 +123,7 @@ int AVLTree<T>::diff(TreeNode<T> *subroot) {
 
 template <class T>
 int AVLTree<T>::height(TreeNode<T> *subroot) {
-    if (subroot == NULL) {
-        return -1;
-    }
-    return 1 + max(height(subroot->left), height(subroot -> right));
+    return 0;
 }
 
 template<class T>
