@@ -132,8 +132,10 @@ public:
      * bubbleSort
      * shellSort
      * quickSort
-     * mergeSort
-     * heapSort
+     * mergeSort_NoMC
+     * mergeSort_MC
+     * heapSortASC
+     * heapSortDESC
      *
      * @param algoName
      */
@@ -150,21 +152,31 @@ void Data<X>::heapSortDESC() {
     // Build heap (rearrange array)
     build_minheap();
 
+    cout << "============  MIN HEAP ============" << endl;
+    printData();
+
     // One by one extract an element from heap
     for (int i=size-1; i>=1; i--)
     {
         // Move current root to end
         swap(&arr[0], &arr[i]);
+        cout << "------------ i=" << i << " ------------" << endl;
+        printData();
 
         // call max heapify on the reduced heap
         min_heapify(i, 0);
     }
+    cout << "===================================" << endl;
 }
 
 template <class X>
 void Data<X>::heapSortASC() {
-    // Build heap (rearrange array)
+    // Build heap
+
     build_maxheap();
+
+    cout << "============  MAX HEAP ============" << endl;
+    printData();
 
     // One by one extract an element from heap
     for (int i=size-1; i>=1; i--)
@@ -172,9 +184,13 @@ void Data<X>::heapSortASC() {
         // Move current root to end
         swap(&arr[0], &arr[i]);
 
+        cout << "------------ i=" << i << " ------------" << endl;
+        printData();
+
         // call max heapify on the reduced heap
         max_heapify(i, 0);
     }
+    cout << "===================================" << endl;
 }
 
 template <class X>
@@ -257,9 +273,13 @@ void Data<X>::min_heapify(int heapSize, int rootIndex) {
 template <class X>
 void Data<X>::shellSort() {
     cout << "shellSort" << endl;
+
+    cout << "============  BEGIN ============" << endl;
     // Start with a big gap, then reduce the gap
     for (int gap = size/2; gap > 0; gap /= 2)
     {
+
+        cout << "============ gap="<<gap<<" ============" << endl;
         // Do a gapped insertion sort for this gap size.
         // The first gap elements a[0..gap-1] are already in gapped order
         // keep adding one more element until the entire array is
@@ -272,56 +292,74 @@ void Data<X>::shellSort() {
 
             // shift earlier gap-sorted elements up until the correct
             // location for a[i] is found
+            cout << "------------  shifting from " << i <<" ------------" << endl;
             int j;
-            for (j = i; j >= gap && arr[j - gap] > temp; j -= gap)
+            for (j = i; j >= gap && arr[j - gap] > temp; j -= gap){
                 arr[j] = arr[j - gap];
+                //cout << "shift: ";
+                //printData();
+            }
 
             //  put temp (the original a[i]) in its correct location
             arr[j] = temp;
+            printData();
         }
     }
+    cout << "============   END  ============" << endl;
 }
 
 
 template <class X>
 void Data<X>::bubbleSort() {
     cout << "bubbleSort" << endl;
+    cout << "============  BEGIN ============" << endl;
     int i, j;
     for (i = 0; i < size-1; i++){
+        cout << "============  i = " << i <<" ============" << endl;
         // The first i elements are already in place.
         for (j = size - 1; j > i ; j--){
             if (arr[j] < arr[j-1]){
                 swap(&arr[j], &arr[j-1]);
+                cout << "------------  SWAP arr[" << j <<"] and arr[" << j-1 <<"] ------------" << endl;
+                printData();
             }
         }
     }
+    cout << "============   END  ============" << endl;
 }
 
 template <class X>
 void Data<X>::selectionSort() {
     cout << "selectionSort" << endl;
+    cout << "============  BEGIN ============" << endl;
     // One by one move boundary of unsorted subarray
     for (int i = 0,j,least; i < size-1; i++) {
         least = i; //Find the minimum element in unsorted array
+        cout << "============  least = i = " << least <<" ============" << endl;
         for (j = i+1; j < size; j++){
             if (arr[j] < arr[least]){
                 least = j;
+                cout << "------------  least = " << least <<" ------------" << endl;
             }
         }
         // Swap the found minimum element with the first element
         swap(&arr[least], &arr[i]);
+        cout << "------------  SWAP arr[" << least <<"] with arr["<<i<<"] ------------" << endl;
+        printData();
     }
+    cout << "============   END  ============" << endl;
 }
 
 template <class X>
 void Data<X>::insertionSort() {
     cout << "insertionSort" << endl;
+    cout << "============  BEGIN ============" << endl;
     int j, key, i;
     for (j = 1; j < size; j++)
     {
         key = arr[j];
         i = j-1;
-
+        cout << "============  arr[" << j <<"]="<<arr[j]<<" ============" << endl;
         /* Move elements of arr[0..j-1], that are
            greater than key, to one position ahead
            of their current position */
@@ -329,9 +367,12 @@ void Data<X>::insertionSort() {
         {
             arr[i+1] = arr[i];
             i = i-1;
+            printData();
         }
         arr[i+1] = key;
+        printData();
     }
+    cout << "============   END  ============" << endl;
 }
 
 template <class X>
@@ -363,17 +404,28 @@ int Data<X>::partition(int low, int high) {
     int pivot = arr[high];    // pivot
     int i = (low - 1);  // Index of smaller element
 
+    cout << "============ arr["<< high<<"] = "<< pivot<< " as pivot ============" << endl;
+    printData();
     for (int j = low; j <= high- 1; j++)
     {
         // If current element is smaller than or
         // equal to pivot
-        if (arr[j] <= pivot)
-        {
+        if (arr[j] <= pivot) {
             i++;    // increment index of smaller element
-            swap(&arr[i], &arr[j]);
+            if (i != j) {
+                cout << "------------  SWAP arr[" << i << "] = " << arr[i] << " with arr["
+                 << j << "] = " << arr[j] << "------------" << endl;
+                swap(&arr[i], &arr[j]);
+                printData();
+            }
+
         }
     }
+    cout << "------------  SWAP arr["<< i+1 <<"] = " << arr[i] << " with arr["
+         << high <<"] = "<< arr[high] << "------------" << endl;
     swap(&arr[i + 1], &arr[high]);
+    printData();
+    cout << "============AFTER  PARTITION return " << i+1 << "==============" << endl;
     return (i + 1);
 }
 
