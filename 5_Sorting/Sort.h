@@ -116,7 +116,7 @@ private:
      * @param b
      */
     void swap(X *a, X *b){
-        int t = *a;
+        X t = *a;
         *a = *b;
         *b = t;
     };
