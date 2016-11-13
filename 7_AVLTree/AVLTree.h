@@ -74,21 +74,35 @@ private:
 
 template <class T>
 TreeNode<T> *AVLTree<T>::ll_rotation(TreeNode<T> *subroot) {
-    return NULL;
+    TreeNode<T> *newroot = NULL;
+    newroot = subroot -> right;
+    subroot -> right = newroot -> left;
+    newroot -> left = subroot;
+    return newroot;
 }
 template <class T>
 TreeNode<T> *AVLTree<T>::rr_rotation(TreeNode<T> *subroot) {
-    return NULL;
+	TreeNode<T> *newroot = NULL;
+    newroot = subroot -> left;
+    subroot -> left = newroot -> right;
+    newroot -> right = subroot;
+    return newroot;
 }
 
 template <class T>
 TreeNode<T> *AVLTree<T>::lr_rotation(TreeNode<T> *subroot) {
-    return NULL;
+	TreeNode<T> *newroot;
+    newroot = subroot -> left;
+    subroot -> left = ll_rotation(newroot);
+    return rr_rotation(subroot);
 }
 
 template <class T>
 TreeNode<T> *AVLTree<T>::rl_rotation(TreeNode<T> *subroot) {
-    return NULL;
+	TreeNode<T> *newroot;
+    newroot = subroot -> right;
+    subroot -> right = rr_rotation(newroot);
+    return ll_rotation(subroot);
 }
 
 template <class T>

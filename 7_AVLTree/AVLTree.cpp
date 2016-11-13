@@ -32,5 +32,5 @@ int main(){
 
     cout << "The height of the tree is : " << AVLTree.height(AVLTree.root) << endl;
 
-   return 0;
+    return 0;
 }
