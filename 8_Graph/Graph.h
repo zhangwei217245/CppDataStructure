@@ -35,14 +35,8 @@ void Graph::addEdge(int v, int w)
 void Graph::DFSUtil(int v, bool visited[])
 {
     // Mark the current node as visited and print it
-    visited[v] = true;
-    cout << v << " ";
  
     // Recur for all the vertices adjacent to this vertex
-    DLLNode<int> *i=NULL;
-    for (i = adj[v].headNode(); i != NULL; i=i->next)
-        if (!visited[i->info])
-            DFSUtil(i->info, visited);
 }
  
 // DFS traversal of the vertices reachable from v. 
@@ -50,49 +44,24 @@ void Graph::DFSUtil(int v, bool visited[])
 void Graph::DFS(int v)
 {
     // Mark all the vertices as not visited
-    bool *visited = new bool[V];
-    for (int i = 0; i < V; i++)
-        visited[i] = false;
  
     // Call the recursive helper function to print DFS traversal
-    DFSUtil(v, visited);
 }
 
 void Graph::BFS(int s)
 {
     // Mark all the vertices as not visited
-    bool *visited = new bool[V];
-    for(int i = 0; i < V; i++)
-        visited[i] = false;
  
     // Create a queue for BFS
-    DoublyLinkedList<int> queue;
  
     // Mark the current node as visited and enqueue it
-    visited[s] = true;
-    queue.addToDLLTail(s);
  
     // 'i' will be used to get all adjacent vertices of a vertex
-    DLLNode<int> *n; 
 
-    while(!queue.isEmpty())
-    {
         // Dequeue a vertex from queue and print it
-        s = queue.firstEl();
-        cout << s << " ";
-        queue.deleteFromDLLHead();
  
         // Get all adjacent vertices of the dequeued vertex s
         // If a adjacent has not been visited, then mark it visited
         // and enqueue it
-        for(n = adj[s].headNode(); n != NULL; n=n->next)
-        {
-            if(!visited[n->info])
-            {
-                visited[n->info] = true;
-                queue.addToDLLTail(n->info);
-            }
-        }
-    }
 }
  
