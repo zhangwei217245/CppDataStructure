@@ -14,6 +14,7 @@ int main(int argc, char **argv)
     int linecounter = 0;
     int a, b;
     Graph g;
+	
 	while (infile >> a >> b)
 	{
         if (linecounter == 0){
