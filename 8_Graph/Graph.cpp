@@ -1,9 +1,24 @@
 #include "Graph.h"
-
+#include <fstream>
+#include <string>
 using namespace std;
 
-int main()
+int main(int argc, char **argv)
 {
+    /*
+    string filename = "graph.txt";
+    if (argc > 1){
+        filename = argv[1];
+        cout <<"reading file : " << filename << endl;
+    }
+    std::ifstream infile(filename);
+    int a, b;
+	while (infile >> a >> b)
+	{
+		cout << a << "," << b<< endl;
+	}
+    */ 
+
     // Create a graph given in the above diagram
     Graph g(4);
     g.addEdge(0, 1);
