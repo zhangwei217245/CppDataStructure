@@ -5,7 +5,6 @@ using namespace std;
 
 int main(int argc, char **argv)
 {
-    
     string filename = "graph.txt";
     if (argc > 1){
         filename = argv[1];
@@ -23,9 +22,9 @@ int main(int argc, char **argv)
             g.addEdge(a, b);
         }
 		cout << a << "," << b<< endl;
+        linecounter++;
 	}
-    
-/*
+    /*
     // Create a graph given in the above diagram
     Graph g(4);
     g.addEdge(0, 1);
@@ -34,7 +33,7 @@ int main(int argc, char **argv)
     g.addEdge(2, 0);
     g.addEdge(2, 3);
     g.addEdge(3, 3);
- */
+    */
     cout << "Following is Depth First Traversal (starting from vertex 2) \n";
     g.DFS(2);
     cout << endl ;
