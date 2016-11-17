@@ -14,17 +14,16 @@ int main(int argc, char **argv)
     int linecounter = 0;
     int a, b;
     Graph g;
-	
-	while (infile >> a >> b)
-	{
+    while (infile >> a >> b)
+    {
         if (linecounter == 0){
             g.init(a);
         }else{
             g.addEdge(a, b);
         }
-		cout << a << "," << b<< endl;
+        cout << a << "," << b<< endl;
         linecounter++;
-	}
+    }
     /*
     // Create a graph given in the above diagram
     Graph g(4);
