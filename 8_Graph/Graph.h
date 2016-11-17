@@ -11,12 +11,26 @@ class Graph
     DoublyLinkedList<int> *adj;  // Pointer to an array containing adjacency lists
     void DFSUtil(int v, bool visited[]);  // A function used by DFS
 public:
+    Graph();
+    void init(int V);
     Graph(int V);   // Constructor
     void addEdge(int v, int w);   // function to add an edge to graph
     void DFS(int v);    // DFS traversal of the vertices reachable from v
 	void BFS(int s);  // prints BFS traversal from a given source s
 };
- 
+
+Graph::Graph(){
+
+}
+void Graph::init(int V){
+    this->V = V;
+    adj = new DoublyLinkedList<int>[V];
+    int i = 0;
+    for(; i < V; i++){
+        adj[i]= *(new DoublyLinkedList<int>());
+    }
+}
+
 Graph::Graph(int V)
 {
     this->V = V;

@@ -5,20 +5,27 @@ using namespace std;
 
 int main(int argc, char **argv)
 {
-    /*
+    
     string filename = "graph.txt";
     if (argc > 1){
         filename = argv[1];
         cout <<"reading file : " << filename << endl;
     }
     std::ifstream infile(filename);
+    int linecounter = 0;
     int a, b;
+    Graph g;
 	while (infile >> a >> b)
 	{
+        if (linecounter == 0){
+            g.init(a);
+        }else{
+            g.addEdge(a, b);
+        }
 		cout << a << "," << b<< endl;
 	}
-    */ 
-
+    
+/*
     // Create a graph given in the above diagram
     Graph g(4);
     g.addEdge(0, 1);
@@ -27,7 +34,7 @@ int main(int argc, char **argv)
     g.addEdge(2, 0);
     g.addEdge(2, 3);
     g.addEdge(3, 3);
- 
+ */
     cout << "Following is Depth First Traversal (starting from vertex 2) \n";
     g.DFS(2);
     cout << endl ;
